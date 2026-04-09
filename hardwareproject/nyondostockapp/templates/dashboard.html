@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NHMS - Stock Management</title>
+    <link rel="stylesheet" href="styles.css">
+    <!-- Tailwind CDN (for now, since we're skipping virtual env) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100">
+<div class="flex min-h-screen" style="background-color: #f3f4f6;">
+
+    <!-- Sidebar -->
+    <aside class="w-64 min-h-screen text-white flex flex-col" style="background-color: #272343;">
+        
+        <!-- Logo -->
+        <div class="flex items-center gap-3 px-6 py-6 border-b border-white border-opacity-10">
+            <div class="w-10 h-10 rounded-full flex items-center justify-center" style="background-color: #f96d00;">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 22V12h6v10" />
+                </svg>
+            </div>
+            <div>
+                <p class="font-bold text-sm">Nyondo Hardware</p>
+                <p class="text-xs opacity-60">Management System</p>
+            </div>
+        </div>
+<nav class="flex-1 px-4 py-6 space-y-1">
+    <a href="#" class="flex items-center gap-3 px-4 py-2 rounded-lg text-sm text-white opacity-70 hover:opacity-100 hover:bg-white hover:bg-opacity-10">
+        🏠 Dashboard
+    </a>
+    <a href="{% url 'stock' %}" class="flex items-center gap-3 px-4 py-2 rounded-lg text-sm text-white opacity-70 hover:opacity-100 hover:bg-white hover:bg-opacity-10">
+        📦 Stock Management
+    </a>
+    <a href="{% url 'sales' %}" class="flex items-center gap-3 px-4 py-2 rounded-lg text-sm text-white opacity-70 hover:opacity-100 hover:bg-white hover:bg-opacity-10">
+        💰 Sales
+    </a>
+    <a href="{% url 'customers' %}" class="flex items-center gap-3 px-4 py-2 rounded-lg text-sm text-white opacity-70 hover:opacity-100 hover:bg-white hover:bg-opacity-10">
+        👥 Customers
+    </a>
+    <a href="{% url 'suppliers' %}" class="flex items-center gap-3 px-4 py-2 rounded-lg text-sm text-white opacity-70 hover:opacity-100 hover:bg-white hover:bg-opacity-10">
+        🚚 Supplier Credit
+    </a>
+    <a href="{% url 'reports' %}" class="flex items-center gap-3 px-4 py-2 rounded-lg text-sm text-white opacity-70 hover:opacity-100 hover:bg-white hover:bg-opacity-10">
+        📊 Reports
+    </a>
+</nav>
+        <!-- Nav Links -->
+       
+
+        <!-- User Info -->
+        <div class="px-6 py-4 border-t border-white border-opacity-10 text-sm opacity-60">
+            Logged in as <span class="font-semibold text-white opacity-100">Admin</span>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="flex-1 p-8">
+
+        <!-- Header -->
+        <div class="mb-8">
+            <h2 class="text-2xl font-bold" style="color: #272343;">Dashboard</h2>
+            <p class="text-gray-500 text-sm">Welcome back! Here's what's happening today.</p>
+        </div>
+
+        <!-- Summary Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-10">
+
+            <!-- Total Sales Today -->
+            <div class="bg-white rounded-2xl p-6 shadow-sm border-l-4" style="border-color: #f96d00;">
+                <p class="text-sm text-gray-500 mb-1">Total Sales Today</p>
+                <h3 class="text-2xl font-bold" style="color: #272343;">UGX 0</h3>
+                <p class="text-xs text-gray-400 mt-1">No sales recorded yet</p>
+            </div>
+
+            <!-- Total Stock Items -->
+            <div class="bg-white rounded-2xl p-6 shadow-sm border-l-4" style="border-color: #272343;">
+                <p class="text-sm text-gray-500 mb-1">Total Stock Items</p>
+                <h3 class="text-2xl font-bold" style="color: #272343;">0</h3>
+                <p class="text-xs text-gray-400 mt-1">No stock added yet</p>
+            </div>
+
+            <!-- Low Stock Alerts -->
+            <div class="bg-white rounded-2xl p-6 shadow-sm border-l-4 border-red-500">
+                <p class="text-sm text-gray-500 mb-1">Low Stock Alerts</p>
+                <h3 class="text-2xl font-bold text-red-500">0</h3>
+                <p class="text-xs text-gray-400 mt-1">All stock levels okay</p>
+            </div>
+
+            <!-- Total Customers -->
+            <div class="bg-white rounded-2xl p-6 shadow-sm border-l-4" style="border-color: #f96d00;">
+                <p class="text-sm text-gray-500 mb-1">Total Customers</p>
+                <h3 class="text-2xl font-bold" style="color: #272343;">0</h3>
+                <p class="text-xs text-gray-400 mt-1">No customers registered yet</p>
+            </div>
+
+            <!-- Pending Customer Balances -->
+            <div class="bg-white rounded-2xl p-6 shadow-sm border-l-4" style="border-color: #272343;">
+                <p class="text-sm text-gray-500 mb-1">Pending Customer Balances</p>
+                <h3 class="text-2xl font-bold" style="color: #272343;">UGX 0</h3>
+                <p class="text-xs text-gray-400 mt-1">No outstanding balances</p>
+            </div>
+
+            <!-- Supplier Credits Owed -->
+            <div class="bg-white rounded-2xl p-6 shadow-sm border-l-4 border-yellow-500">
+                <p class="text-sm text-gray-500 mb-1">Supplier Credits Owed</p>
+                <h3 class="text-2xl font-bold text-yellow-600">UGX 0</h3>
+                <p class="text-xs text-gray-400 mt-1">No supplier credit recorded</p>
+            </div>
+
+        </div>
+
+    </main>
+</div>
+</body>
+</html>

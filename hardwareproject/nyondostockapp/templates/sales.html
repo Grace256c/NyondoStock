@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NHMS - Stock Management</title>
+    <link rel="stylesheet" href="sytles.css">
+    <!-- Tailwind CDN (for now, since we're skipping virtual env) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100">
+<div class="flex min-h-screen" style="background-color: #f3f4f6;">
+
+    <!-- Sidebar -->
+    <aside class="w-64 min-h-screen text-white flex flex-col" style="background-color: #272343;">
+        <div class="flex items-center gap-3 px-6 py-6 border-b border-white border-opacity-10">
+            <div class="w-10 h-10 rounded-full flex items-center justify-center" style="background-color: #f96d00;">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 22V12h6v10" />
+                </svg>
+            </div>
+            <div>
+                <p class="font-bold text-sm">Nyondo Hardware</p>
+                <p class="text-xs opacity-60">Management System</p>
+            </div>
+        </div>
+        <nav class="flex-1 px-4 py-6 space-y-1">
+            <a href="{% url 'dashboard' %}" class="flex items-center gap-3 px-4 py-2 rounded-lg text-sm text-white opacity-70 hover:opacity-100 hover:bg-white hover:bg-opacity-10">
+                🏠 Dashboard
+            </a>
+            <a href="{% url 'stock' %}" class="flex items-center gap-3 px-4 py-2 rounded-lg text-sm text-white opacity-70 hover:opacity-100 hover:bg-white hover:bg-opacity-10">
+                📦 Stock Management
+            </a>
+            <a href="#" class="flex items-center gap-3 px-4 py-2 rounded-lg text-sm font-medium text-white" style="background-color: #f96d00;">
+                💰 Sales
+            </a>
+            <a href="{% url 'customers' %}" class="flex items-center gap-3 px-4 py-2 rounded-lg text-sm text-white opacity-70 hover:opacity-100 hover:bg-white hover:bg-opacity-10">
+                👥 Customers
+            </a>
+            <a href="{% url 'suppliers' %}" class="flex items-center gap-3 px-4 py-2 rounded-lg text-sm text-white opacity-70 hover:opacity-100 hover:bg-white hover:bg-opacity-10">
+                🚚 Supplier Credit
+            </a>
+            <a href="{% url 'reports' %}" class="flex items-center gap-3 px-4 py-2 rounded-lg text-sm text-white opacity-70 hover:opacity-100 hover:bg-white hover:bg-opacity-10">
+                📊 Reports
+            </a>
+        </nav>
+        <div class="px-6 py-4 border-t border-white border-opacity-10 text-sm opacity-60">
+            Logged in as <span class="font-semibold text-white opacity-100">Admin</span>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="flex-1 p-8">
+
+        <!-- Header -->
+        <div class="flex items-center justify-between mb-8">
+            <div>
+                <h2 class="text-2xl font-bold" style="color: #272343;">Sales Management</h2>
+                <p class="text-gray-500 text-sm">Record and track all sales transactions</p>
+            </div>
+            <button
+                onclick="document.getElementById('addSaleModal').classList.remove('hidden')"
+                class="text-white px-5 py-2 rounded-lg font-medium transition duration-200"
+                style="background-color: #f96d00;"
+                onmouseover="this.style.backgroundColor='#d95e00'"
+                onmouseout="this.style.backgroundColor='#f96d00'"
+            >
+                + Record Sale
+            </button>
+        </div>
+
+        <!-- Summary Strip -->
+        <div class="grid grid-cols-3 gap-6 mb-8">
+            <div class="bg-white rounded-2xl p-5 shadow-sm border-l-4" style="border-color: #f96d00;">
+                <p class="text-sm text-gray-500">Total Sales Today</p>
+                <h3 class="text-xl font-bold mt-1" style="color: #272343;">UGX 0</h3>
+            </div>
+            <div class="bg-white rounded-2xl p-5 shadow-sm border-l-4" style="border-color: #272343;">
+                <p class="text-sm text-gray-500">Transactions Today</p>
+                <h3 class="text-xl font-bold mt-1" style="color: #272343;">0</h3>
+            </div>
+            <div class="bg-white rounded-2xl p-5 shadow-sm border-l-4 border-green-500">
+                <p class="text-sm text-gray-500">Total Sales This Month</p>
+                <h3 class="text-xl font-bold mt-1 text-green-600">UGX 0</h3>
+            </div>
+        </div>
+
+        <!-- Sales Table -->
+        <div class="bg-white rounded-2xl shadow-sm overflow-hidden">
+            <table class="w-full text-sm">
+                <thead>
+                    <tr style="background-color: #272343; color: white;">
+                        <th class="px-6 py-4 text-left">#</th>
+                        <th class="px-6 py-4 text-left">Product</th>
+                        <th class="px-6 py-4 text-left">Customer</th>
+                        <th class="px-6 py-4 text-left">Qty</th>
+                        <th class="px-6 py-4 text-left">Unit Price</th>
+                        <th class="px-6 py-4 text-left">Transport</th>
+                        <th class="px-6 py-4 text-left">Total</th>
+                        <th class="px-6 py-4 text-left">Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td colspan="8" class="px-6 py-10 text-center text-gray-400">
+                            No sales recorded yet. Click <strong>+ Record Sale</strong> to get started.
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </main>
+</div>
+
+<!-- Record Sale Modal -->
+<div id="addSaleModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+    <div class="bg-white rounded-2xl shadow-xl w-full max-w-lg p-8">
+
+        <div class="flex items-center justify-between mb-6">
+            <h3 class="text-xl font-bold" style="color: #272343;">Record New Sale</h3>
+            <button
+                onclick="document.getElementById('addSaleModal').classList.add('hidden')"
+                class="text-gray-400 hover:text-gray-600 text-xl font-bold"
+            >✕</button>
+        </div>
+
+        <form method="POST">
+            {% csrf_token %}
+            <div class="grid grid-cols-2 gap-4">
+
+                <div class="col-span-2">
+                    <label class="block text-sm font-medium mb-1" style="color: #272343;">Customer Name</label>
+                    <input type="text" name="customer_name" placeholder="e.g. Grace Nakiyemba"
+                        class="w-full border border-gray-300 rounded-lg px-4 py-2 text-sm focus:outline-none" required>
+                </div>
+
+                <div class="col-span-2">
+                    <label class="block text-sm font-medium mb-1" style="color: #272343;">Product Name</label>
+                    <input type="text" name="product_name" placeholder="e.g. Iron Bar 10mm"
+                        class="w-full border border-gray-300 rounded-lg px-4 py-2 text-sm focus:outline-none" required>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium mb-1" style="color: #272343;">Quantity</label>
+                    <input type="number" name="quantity" id="quantity" placeholder="0"
+                        class="w-full border border-gray-300 rounded-lg px-4 py-2 text-sm focus:outline-none"
+                        oninput="calculateTotal()" required>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium mb-1" style="color: #272343;">Unit Price (UGX)</label>
+                    <input type="number" name="unit_price" id="unit_price" placeholder="0"
+                        class="w-full border border-gray-300 rounded-lg px-4 py-2 text-sm focus:outline-none"
+                        oninput="calculateTotal()" required>
+                </div>
+
+                <div class="col-span-2">
+                    <label class="block text-sm font-medium mb-1" style="color: #272343;">Distance from Shop</label>
+                    <select name="distance" id="distance" class="w-full border border-gray-300 rounded-lg px-4 py-2 text-sm focus:outline-none" onchange="calculateTotal()">
+                        <option value="within">Within 10km</option>
+                        <option value="outside">Outside 10km</option>
+                    </select>
+                </div>
+
+                <!-- Transport Fee (auto calculated) -->
+                <div>
+                    <label class="block text-sm font-medium mb-1" style="color: #272343;">Transport Fee (UGX)</label>
+                    <input type="text" id="transport_fee" name="transport_fee" value="0" readonly
+                        class="w-full border border-gray-200 rounded-lg px-4 py-2 text-sm bg-gray-50">
+                </div>
+
+                <!-- Total (auto calculated) -->
+                <div>
+                    <label class="block text-sm font-medium mb-1" style="color: #272343;">Total Cost (UGX)</label>
+                    <input type="text" id="total_cost" name="total_cost" value="0" readonly
+                        class="w-full border border-gray-200 rounded-lg px-4 py-2 text-sm bg-gray-50 font-bold">
+                </div>
+
+            </div>
+
+            <div class="mt-6 flex gap-3">
+                <button type="submit"
+                    class="flex-1 text-white py-2 rounded-lg font-medium"
+                    style="background-color: #f96d00;">
+                    Save Sale
+                </button>
+                <button type="button"
+                    onclick="document.getElementById('addSaleModal').classList.add('hidden')"
+                    class="flex-1 border border-gray-300 text-gray-600 py-2 rounded-lg font-medium">
+                    Cancel
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Auto-calculate transport and total -->
+<script>
+function calculateTotal() {
+    const qty = parseFloat(document.getElementById('quantity').value) || 0;
+    const price = parseFloat(document.getElementById('unit_price').value) || 0;
+    const distance = document.getElementById('distance').value;
+
+    const subtotal = qty * price;
+
+    // Business rule: free transport if >= 500,000 UGX and within 10km
+    let transport = 0;
+    if (distance === 'outside') {
+        transport = 30000;
+    } else if (subtotal < 500000) {
+        transport = 30000;
+    }
+
+    document.getElementById('transport_fee').value = transport.toLocaleString();
+    document.getElementById('total_cost').value = (subtotal + transport).toLocaleString();
+}
+</script>
+
+</body>
+</html>
