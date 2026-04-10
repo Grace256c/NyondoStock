@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
-<link rel="stylesheet" href="{% static 'css/styles.css' %}">
+<link rel="stylesheet" href="../static/css/login.css">
 <!-- Tailwind CDN (for now, since we're skipping virtual env) -->
 <script src="https://cdn.tailwindcss.com"></script>
 
@@ -31,8 +31,7 @@
 
             <!-- Form -->
             <form method="POST">
-                {% csrf_token %}
-
+                
                 <div class="mb-5">
                     <label class="block font-medium mb-1" style="color: #272343;">Username</label>
                     <input type="text" name="username" placeholder="Enter your username"
